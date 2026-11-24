@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>David Benittah — Identité de marque, site, contenu</title>
+<meta name="description" content="David Benittah construit ce qui fait qu’on vous remarque : une identité de marque, un site, des contenus.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<div id="app">
+
+  <div class="entree" id="entree" aria-hidden="true"><i></i><img src="assets/db-ciel-profond.svg" alt="" width="72" height="72"></div>
+
+  <header class="tete grille">
+    <a class="logo" href="#ouverture" data-go="0" aria-label="David Benittah, retour au début"><img src="assets/db-ciel-profond.svg" alt="" width="44" height="44"></a>
+    <nav class="liens" aria-label="Parties du site">
+      <a href="#ensemble" data-go="1" data-nav="1">L’ensemble</a>
+      <a href="#travail" data-galerie data-nav="2">Mon travail</a>
+      <a href="#moi" data-go="3" data-nav="3">Moi</a>
+    </nav>
+    <a class="contact" href="#contact" data-go="4" data-nav="4">Contact</a>
+  </header>
+
+  <main class="deck" id="deck">
+
+    <section class="pane grille p-ouverture" id="ouverture" aria-label="Ouverture">
+      <div class="film" data-r>
+        <video id="bobine" src="assets/film-ouverture.mp4" poster="assets/film-ouverture.jpg" playsinline preload="auto" aria-label="Film d’ouverture : pourquoi on vous remarque, en une minute"></video>
+        <button class="film-lancer" type="button" id="lancer" hidden><span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg>Lancer le film</span></button>
+      </div>
+    </section>
+
+    <section class="pane grille p-ensemble" id="ensemble" aria-label="Ce que je construis">
+      <header class="chapeau" data-r>
+        <p class="etiquette">Ce que je construis</p>
+        <h2 class="dit">On vous remarque pour un ensemble.</h2>
+        <p class="sous">Une identité qu’on reconnaît, un site qui la tient, des contenus qui la font vivre.</p>
+      </header>
+      <a class="brique b1" href="#identite" data-domaine="identite" data-r style="--i:1" aria-label="Identité de marque : voir la page">
+        <div class="vitrine v-identite" role="img" aria-label="Une identité de marque : un signe, des couleurs, une écriture">
+          <span class="marque"><img src="assets/db-lever.svg" alt="" width="96" height="96"></span>
+          <span class="specimen"><span class="aa">Aa</span><span class="nuancier"><i style="background:#58B2FF"></i><i style="background:#9FDEFF"></i><i style="background:#CAF4FF"></i><i style="background:#FEF9CF"></i><i style="background:#2C6CB6"></i></span></span>
+        </div>
+        <h3>Identité de marque</h3>
+        <p>Un signe, des couleurs, une écriture. On vous reconnaît avant de lire votre nom.</p>
+        <span class="decouvrir">Découvrir <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="brique b2" href="#site" data-domaine="site" data-r style="--i:2" aria-label="Site : voir la page">
+        <div class="vitrine v-site">
+          <div class="navigateur"><span class="barre"><i></i><i></i><i></i><b>votre-nom.fr</b></span><img src="assets/apercu-site.jpg" alt="Une page de site" loading="lazy" decoding="async"></div>
+        </div>
+        <h3>Site</h3>
+        <p>L’endroit où l’on vient vérifier, et où l’on se décide.</p>
+        <span class="decouvrir">Découvrir <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="brique b3" href="#contenu" data-domaine="contenu" data-r style="--i:3" aria-label="Contenu réseaux : voir la page">
+        <div class="vitrine v-contenu">
+          <div class="telephone"><video src="assets/loop-open-anywhere.mp4" muted loop playsinline preload="none" poster="assets/couv-open-anywhere.jpg" aria-label="Une vidéo pour les réseaux"></video></div>
+        </div>
+        <h3>Contenu réseaux</h3>
+        <p>Des vidéos qui vous gardent sous les yeux, semaine après semaine.</p>
+        <span class="decouvrir">Découvrir <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </section>
+
+    <section class="pane grille p-porte" id="travail" aria-label="Mon travail">
+      <div class="porte" id="porte" data-r>
+        <div class="porte-grille" id="porte-grille" aria-hidden="true" data-dw-ignore></div>
+        <button class="porte-bouton" type="button" id="porte-bouton" data-galerie><span>Mon travail <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      </div>
+    </section>
+
+    <section class="pane grille p-moi" id="moi" aria-label="Moi, mon parcours">
+      <div class="tuile lever cv defile" data-r>
+        <p class="etiquette">David Benittah</p>
+        <h2 class="cv-titre">Je ne crée pas simplement des vidéos. Je donne une direction aux idées.</h2>
+        <div class="cv-recit">
+          <p>Depuis trois ans, j’ai fait de la création visuelle un terrain d’exploration permanent. Du montage vidéo aux stratégies d’acquisition digitale, j’ai progressivement développé une expertise qui associe maîtrise technique, compréhension du marketing et sens de la narration.</p>
+          <p>Mes expériences auprès de différentes entreprises m’ont permis de comprendre une chose essentielle&nbsp;: une belle image ne suffit pas. Chaque création doit servir une intention, provoquer une émotion et répondre à un objectif. Cette approche m’a notamment conduit à travailler sur la génération de prospects et à maîtriser des outils comme Meta Ads Manager.</p>
+          <p>Puis l’intelligence artificielle a profondément transformé ma manière d’envisager la production.</p>
+          <p>J’ai consacré une grande partie de mon travail à explorer ses possibilités, à expérimenter de nouvelles méthodes et à repousser les frontières entre création traditionnelle et technologies émergentes.</p>
+          <p>Une question est alors devenue centrale dans ma réflexion&nbsp;: <strong>et si les technologies actuelles permettaient à un créateur indépendant de concrétiser des ambitions autrefois réservées aux grandes équipes de production&nbsp;?</strong></p>
+          <p>Elles le permettent. Et comme elles le permettent à tout le monde, la différence se fait dans le regard qui les dirige.</p>
+          <p>C’est autour de cette conviction que j’ai construit ma propre approche.</p>
+          <p>Aujourd’hui, je réunis création audiovisuelle, direction artistique, intelligence artificielle et réflexion stratégique pour imaginer des expériences visuelles qui ne se contentent pas d’attirer l’attention, mais qui construisent une identité et marquent les esprits.</p>
+          <p><strong>Ma philosophie est simple&nbsp;: ne pas reproduire ce qui existe, mais chercher ce qui pourrait exister.</strong></p>
+          <p>La vidéo est mon domaine d’expression. L’innovation est mon moteur. Et ma véritable ambition dépasse les frontières d’un seul métier&nbsp;: donner aux idées les moyens de devenir remarquables.</p>
+        </div>
+      </div>
+      <div class="tuile ciel" data-r style="--i:1">
+        <img class="signe" src="assets/db-lever.svg" alt="" width="96" height="96">
+        <img class="portrait" src="assets/portrait-960.webp" srcset="assets/portrait-640.webp 640w, assets/portrait-960.webp 960w, assets/portrait-1280.webp 1280w" sizes="(max-width: 760px) 90vw, 34vw" alt="Portrait de David Benittah" width="960" height="960" loading="lazy" decoding="async">
+      </div>
+    </section>
+
+    <section class="pane grille p-contact" id="contact" aria-label="Contact">
+      <div class="fin">
+        <img class="fin-db" data-r src="assets/db-ciel.svg" alt="Db" width="120" height="120">
+        <p class="etiquette" data-r style="--i:1">Contact</p>
+        <h2 class="dit" data-r style="--i:1">Parlons de votre projet.</h2>
+        <p class="sous" data-r style="--i:2">Une idée suffit pour commencer.</p>
+        <form class="demande" id="demande" novalidate data-r style="--i:3">
+          <label><span>Votre nom</span><input name="nom" type="text" autocomplete="name" required maxlength="80"></label>
+          <label><span>Où vous répondre</span><input name="contact" type="text" autocomplete="email" placeholder="Mail ou téléphone" required maxlength="160"></label>
+          <label class="large"><span>Ce que vous vendez</span><input name="vend" type="text" required maxlength="300"></label>
+          <input class="miel" name="site" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="envoyer" type="submit" id="envoyer">Envoyer</button>
+          <p class="etiquette demande-note" id="demande-note" role="status" aria-live="polite"></p>
+        </form>
+        <div class="merci" id="merci" hidden aria-live="polite">
+          <p class="titre">Merci.</p>
+          <p class="sous">Je vous réponds vite.</p>
+        </div>
+        <p class="reseaux" data-r style="--i:4"><a class="mail" id="mail" href="mailto:david.benittah@gmail.com?subject=Une%20id%C3%A9e%20de%20projet">david.benittah@gmail.com</a><a data-reseau="instagram" href="https://www.instagram.com/david_benittah/" target="_blank" rel="noopener">Instagram</a><a data-reseau="tiktok" href="https://www.tiktok.com/@davidbenittah" target="_blank" rel="noopener">TikTok</a></p>
+      </div>
+      <p class="copie" data-r style="--i:5">© 2026 David Benittah</p>
+    </section>
+
+  </main>
+
+  <div class="domaine" id="domaine" hidden role="dialog" aria-modal="true" aria-label="Un métier">
+    <div class="d-defile" id="d-defile"><div class="d-page" id="d-page"></div></div>
+    <header class="d-tete grille">
+      <button class="logo" type="button" data-domaine-fermer aria-label="Revenir à la page Ce que je construis"><img src="assets/db-ciel-profond.svg" alt="" width="44" height="44"></button>
+      <nav class="liens d-onglets" aria-label="Les trois métiers">
+        <button type="button" data-domaine="identite">Identité de marque</button>
+        <button type="button" data-domaine="site">Site</button>
+        <button type="button" data-domaine="contenu">Contenu réseaux</button>
+      </nav>
+      <button class="pilule sombre d-fermer" type="button" data-domaine-fermer>Fermer</button>
+    </header>
+  </div>
+
+  <div class="galerie" id="galerie" hidden role="dialog" aria-modal="true" aria-label="Mon travail">
+    <div class="g-vue" id="g-vue"></div>
+    <header class="g-tete grille">
+      <button class="g-logo" type="button" data-galerie-fermer aria-label="Revenir au site"><img src="assets/db-lever.svg" alt="" width="44" height="44"></button>
+      <p class="g-dit">Identité de marque, site, contenu réseaux.</p>
+      <button class="pilule g-fermer" type="button" id="g-fermer" data-galerie-fermer>Fermer</button>
+    </header>
+    <footer class="g-pied grille">
+      <p class="g-aide" id="g-aide">Glissez pour parcourir</p>
+      <nav class="g-reseaux" aria-label="Mes réseaux"><span>Mes réseaux</span><a class="pilule" data-reseau="instagram" href="https://www.instagram.com/david_benittah/" target="_blank" rel="noopener">Instagram</a><a class="pilule" data-reseau="tiktok" href="https://www.tiktok.com/@davidbenittah" target="_blank" rel="noopener">TikTok</a></nav>
+      <p class="g-compte" id="g-compte"></p>
+    </footer>
+    <div class="fiche grille" id="fiche" hidden>
+      <div class="f-fond"></div>
+      <div class="f-cadre" id="f-cadre"></div>
+      <div class="f-texte">
+        <p class="f-type" id="f-type"></p>
+        <h2 class="f-titre" id="f-titre"></h2>
+        <p class="f-ligne" id="f-ligne"></p>
+        <p class="f-note" id="f-note" hidden></p>
+        <p class="f-liens"><a id="f-ig" target="_blank" rel="noopener">Voir sur Instagram</a><button type="button" id="f-fermer">Fermer</button></p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="pied grille">
+    <p class="compte" id="compte" aria-live="polite">1 / 5</p>
+    <button class="son" type="button" id="son" aria-pressed="false">Activer le son</button>
+    <button class="suivant" type="button" id="suivant"><span id="suivant-mot">Suivant</span> <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </footer>
+
+</div>
+<script src="vendor/distortion-wave.iife.min.js"></script>
+<script src="travail.js"></script>
+<script src="domaines.js"></script>
+<script src="site.js"></script>
+<script src="galerie.js"></script>
+<script src="domaine.js"></script>
+</body>
+</html>
