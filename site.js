@@ -10,6 +10,20 @@
 
   let idx = 0, busy = false, mesures = [];
 
+  // Téléphone (David, 24/11, après avoir vu le site sur son iPhone : « le reflexe de swipe a droite je l'aprecie moins sur
+  // telephone, peut etre qu'il faudrai si possible y mettre le slide plutot qu'un swipe ») : sous 760 px de large, les
+  // parties se suivent de haut en bas et la page défile comme n'importe quelle page ; plus de glissement de côté ni d'onde.
+  // La mise en page du téléphone est dans site.css ; ici, seulement ce qui dépend du défilement.
+  const etroit = matchMedia('(max-width: 760px)');
+  const TEL = etroit.matches;
+  app.classList.toggle('tel', TEL);
+  etroit.addEventListener('change', () => location.reload());
+  function defilerVers(el, doux) {
+    const html = document.documentElement, y = Math.round(el.getBoundingClientRect().top + scrollY);
+    if (doux && !reduced) { scrollTo({ top: y, behavior: 'smooth' }); return; }
+    html.style.scrollBehavior = 'auto'; scrollTo(0, y); html.style.scrollBehavior = '';
+  }
+
   // La galerie « Mon travail » (galerie.js) recouvre tout : pendant qu'elle est ouverte, les pages ne bougent pas.
   // Même chose pour la page d'un métier (domaine.js).
   const enGalerie = () => app.classList.contains('en-galerie') || app.classList.contains('en-domaine');
@@ -23,10 +37,14 @@
   // Il ne part jamais muet ; seul le bouton « Couper le son » le rend muet.
   const son = document.getElementById('son'), filmOuv = document.getElementById('bobine'), lancer = document.getElementById('lancer');
   let sonCoupe = false;
+  // le film existe en deux formats : large pour l'ordinateur, vertical (9:16) pour le téléphone
+  filmOuv.poster = filmOuv.dataset[TEL ? 'afficheHaut' : 'afficheLarge'];
+  filmOuv.src = filmOuv.dataset[TEL ? 'haut' : 'large'];
+  const sonCache = () => (TEL ? !lancer.hidden : idx !== 0 || !lancer.hidden);
   function sonEtat() {
     son.textContent = filmOuv.muted ? 'Activer le son' : 'Couper le son';
     son.setAttribute('aria-pressed', String(!filmOuv.muted));
-    son.hidden = idx !== 0 || !lancer.hidden;
+    son.hidden = sonCache();
   }
   function attendre(oui) { lancer.hidden = !oui; sonEtat(); }
   function filmJoue() {
@@ -51,7 +69,7 @@
     suivantMot.textContent = fin ? 'Début' : 'Suivant';
     suivant.classList.toggle('retour', fin);
     history.replaceState(null, '', i === 0 ? location.pathname : '#' + panes[i].id);
-    son.hidden = i !== 0 || !lancer.hidden;
+    son.hidden = sonCache();
   }
   // une zone de texte plus haute que sa tuile : on signale qu'il en reste
   const defiles = [...document.querySelectorAll('.defile')];
@@ -59,11 +77,13 @@
   defiles.forEach((z) => z.addEventListener('scroll', debords, { passive: true }));
   addEventListener('resize', debords);
   function medias(i) {
+    if (TEL) return;   // au téléphone, ce qui joue dépend de ce qui est à l'écran (plus bas : « Téléphone »)
     requestAnimationFrame(debords);
     panes.forEach((p, n) => p.querySelectorAll('.media video, .telephone video').forEach((v) => { if (n === i) v.play().catch(() => {}); else v.pause(); }));
     if (i === 0) filmJoue(); else filmOuv.pause();
   }
   function poser(i) {
+    if (TEL) { defilerVers(panes[i], false); panes[i].classList.add('vue'); idx = i; reperes(i); return; }
     panes.forEach((p, n) => p.classList.toggle('ici', n === i));
     panes[i].classList.add('vue');
     idx = i; reperes(i); medias(i);
@@ -72,7 +92,7 @@
   // ——— Glisser : la partie suivante arrive par la droite
   function glisser(i, ms) {
     i = Math.max(0, Math.min(N - 1, i));
-    if (busy || i === idx || enGalerie()) return;
+    if (TEL || busy || i === idx || enGalerie()) return;
     if (reduced) { poser(i); return; }
     busy = true;
     const dir = i > idx ? 1 : -1, a = panes[idx], b = panes[i];
@@ -133,6 +153,7 @@
   }
   function aller(i, source, ev) {
     i = Math.max(0, Math.min(N - 1, i));
+    if (TEL) { if (!enGalerie()) defilerVers(panes[i], true); return; }
     if (busy || i === idx || enGalerie()) return;
     onde(() => poser(i), source, ev);
   }
@@ -141,7 +162,7 @@
   // Geste (molette, pavé, flèches, doigt) : on glisse. Clic sur un lien ou un bouton : l'onde.
   let verrou = false, repos = 0, dernierPas = 0;
   addEventListener('wheel', (e) => {
-    if (e.ctrlKey || enGalerie()) return;
+    if (TEL || e.ctrlKey || enGalerie()) return;
     const zone = e.target.closest && e.target.closest('.defile');
     if (zone && zone.scrollHeight > zone.clientHeight + 2 && Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
       const auBout = e.deltaY > 0 ? zone.scrollTop + zone.clientHeight >= zone.scrollHeight - 2 : zone.scrollTop <= 0;
@@ -158,7 +179,7 @@
   }, { passive: false });
 
   addEventListener('keydown', (e) => {
-    if (enGalerie()) return;
+    if (TEL || enGalerie()) return;
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.target.closest && e.target.closest('input, textarea, select')) return;
     const k = e.key;
@@ -169,7 +190,7 @@
 
   let doigt = null;
   deck.addEventListener('touchstart', (e) => {
-    if (busy || e.touches.length !== 1 || enGalerie()) return;
+    if (TEL || busy || e.touches.length !== 1 || enGalerie()) return;
     doigt = { x: e.touches[0].clientX, y: e.touches[0].clientY, t: performance.now(), axe: null, dx: 0, voisin: -1 };
   }, { passive: true });
   deck.addEventListener('touchmove', (e) => {
@@ -263,7 +284,45 @@
   const adresse = window.DOMAINES && window.DOMAINES[location.hash.slice(1)] ? '#ensemble' : location.hash;
   const depart = panes.findIndex((p) => '#' + p.id === adresse);
   if (lib && lib.warmupWave) { try { lib.warmupWave(); } catch (err) {} }
-  if (depart > 0 || reduced) {
+  // ——— Téléphone : la page défile. Une partie se révèle quand elle arrive à l'écran ; le film joue tant qu'il occupe
+  // plus de la moitié de l'écran ; le menu et l'adresse suivent la partie qui passe au milieu de l'écran.
+  function telephone() {
+    const ouverture = panes[0];
+    ouverture.append(son);   // le bouton du son se pose en bas du film, au centre
+    ouverture.insertAdjacentHTML('beforeend', '<svg class="tel-bas" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+    sonEtat();
+    const vues = new IntersectionObserver((es) => es.forEach((e) => {
+      const p = e.target, la = e.isIntersecting;
+      if (la) p.classList.add('vue');
+      p.classList.toggle('ici', la);
+      p.querySelectorAll('.telephone video').forEach((v) => { if (la && !enGalerie()) v.play().catch(() => {}); else v.pause(); });
+    }), { threshold: 0.12 });
+    panes.forEach((p) => vues.observe(p));
+    new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.intersectionRatio >= 0.5 && !enGalerie()) filmJoue(); else filmOuv.pause();
+    }), { threshold: [0, 0.5, 1] }).observe(ouverture);
+    let attente = false;
+    const suivre = () => {
+      attente = false;
+      if (enGalerie()) return;
+      let i = 0;
+      panes.forEach((p, n) => { if (p.getBoundingClientRect().top <= innerHeight * 0.5) i = n; });
+      if (i !== idx) { idx = i; reperes(i); }
+    };
+    addEventListener('scroll', () => { if (!attente) { attente = true; requestAnimationFrame(suivre); } }, { passive: true });
+  }
+
+  if (TEL) {
+    if (depart > 0 || reduced) {
+      app.classList.add('sans-entree', 'pret');
+      telephone();
+      if (depart > 0) poser(depart); else reperes(0);
+    } else {
+      reperes(0);
+      setTimeout(() => { app.classList.add('pret'); telephone(); }, 1750);
+      setTimeout(() => { const el = document.getElementById('entree'); if (el) el.remove(); }, 2700);
+    }
+  } else if (depart > 0 || reduced) {
     app.classList.add('sans-entree', 'pret');
     poser(Math.max(0, depart));
   } else {

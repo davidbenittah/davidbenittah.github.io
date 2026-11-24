@@ -273,70 +273,6 @@ button.case:focus-visible { outline-offset: -3px; }
 .f-liens button { color: rgb(255 255 255 / 0.6); }
 .f-liens button:hover { color: var(--blanc); }
 
-/* Téléphone : quatre colonnes, mêmes règles */
-@media (max-width: 760px) {
-  :root { --m: 20px; --g: 12px; --y0: 84px; --yb: 60px; --t-titre: 30px; --t-grand: 30px; --t-base: 17px; --t-petit: 15px; }
-  .grille { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .tete { height: 64px; }
-  .logo { grid-column: 1 / span 1; }
-  .liens { grid-column: 2 / span 2; gap: 12px; font-size: 14px; justify-self: center; white-space: nowrap; }
-  .contact { grid-column: 4 / span 1; font-size: 14px; }
-  .compte { grid-column: 1 / span 1; }
-  .son { grid-column: 2 / span 2; white-space: nowrap; }
-  .suivant { grid-column: 4 / span 1; white-space: nowrap; }
-  .film { grid-column: 1 / -1; align-self: center; }
-  .p-ouverture { align-content: center; }
-  .liens { grid-column: 2 / span 2; justify-content: center; }
-  .p-ensemble { row-gap: 16px; align-content: center; grid-template-rows: none; }
-  .chapeau { grid-column: 1 / -1; }
-  .sous { font-size: var(--t-petit); }
-  .brique { grid-row: auto; grid-column: 1 / -1; grid-template-columns: 104px 1fr; column-gap: 14px; justify-items: start; align-items: center; text-align: left; }
-  .brique { grid-template-rows: none; align-self: start; }
-  .vitrine { grid-row: 1 / span 3; height: 104px; align-self: center; }
-  .decouvrir { margin-top: 6px; }
-  .brique h3 { margin-top: 0; align-self: end; }
-  .brique p { align-self: start; }
-  .v-identite { gap: 7px; }
-  .v-identite .marque, .v-identite .specimen { width: auto; height: 50px; }
-  .v-identite .marque { width: 50px; }
-  .v-identite .aa { font-size: 30px; }
-  .v-identite .nuancier { gap: 2px; }
-  .v-identite .nuancier i { width: 6px; }
-  .navigateur .barre { height: 10px; } .navigateur .barre b { display: none; }
-  .telephone { border-width: 3px; border-radius: 9px; }
-  .porte { grid-column: 1 / -1; align-self: center; aspect-ratio: 4 / 5; width: 100%; max-height: calc(100dvh - var(--y0) - var(--yb) - 4px); }
-  .p-porte { align-content: center; }
-  .p-moi { grid-template-rows: minmax(0, 1fr) auto; row-gap: 12px; }
-  .tuile.lever, .tuile.ciel { grid-column: 1 / -1; }
-  .tuile.lever { padding: 18px; }
-  .tuile.lever { container-type: normal; }
-  .cv-titre { font-size: 23px; }
-  .cv-recit { margin-top: 14px; columns: 1; font-size: 15px; line-height: 1.32; }
-  .defile.suite::after { bottom: -18px; }
-  .tuile.ciel { height: 104px; }
-  .portrait { height: 96%; }
-  .fin { grid-column: 1 / -1; }
-  .demande { grid-template-columns: 1fr; }
-  .film-lancer { background: rgb(255 255 255 / 0.95); }
-  .film-lancer span { padding: 12px 20px 12px 16px; font-size: var(--t-petit); }
-  .demande input { font-size: 17px; }
-  .case { padding: 10px 11px; }
-  .c-haut i { display: none; }
-  .c-milieu { padding: 10px 0; }
-  .g-tete { height: 64px; }
-  .g-logo { grid-column: 1 / span 1; }
-  .g-dit { display: none; }
-  .g-fermer { grid-column: 3 / span 2; }
-  .g-pied { height: 84px; }
-  .g-aide, .g-compte { display: none; }
-  .g-reseaux { grid-column: 1 / -1; }
-  .fiche { padding-block: 64px 20px; align-content: start; row-gap: 14px; }
-  .f-film .f-cadre, .f-large .f-cadre, .f-site .f-cadre, .f-art .f-cadre { grid-column: 1 / -1; justify-self: center; }
-  .f-film .f-cadre { height: calc(100dvh - 300px); }
-  .f-art .f-cadre { height: auto; width: 100%; }
-  .f-texte, .f-large .f-texte, .f-site .f-texte { grid-column: 1 / -1; }
-  .f-liens { margin-top: 14px; }
-}
 
 /* ——— Les pages des trois métiers (domaines.js, domaine.js) : un calque blanc par-dessus le site, qui se lit de haut en bas.
    Il s'ouvre depuis la vitrine d'une carte : la même image, agrandie, fait l'ouverture de la page. */
@@ -461,22 +397,6 @@ button.case:focus-visible { outline-offset: -3px; }
 .d-ensuite:hover .d-ensuite-nom { gap: 18px; }
 .d-mention { grid-column: 2 / span 10; font-size: var(--t-micro); color: var(--gris); }
 .d-mention:empty { display: none; }
-
-@media (max-width: 760px) {
-  .d-onglets { display: none; }
-  .d-fermer { grid-column: 3 / span 2; }
-  .d-ouverture { height: auto; grid-template-rows: auto auto; row-gap: 26px; padding-bottom: 54px; }
-  .d-bloc .d-texte, .d-bloc .d-image, .d-bloc .d-apres, .d-fin-centre, .d-ensuite, .d-mention { grid-column: 1 / -1; grid-row: auto; text-align: left; justify-self: stretch; }
-  .f-centre .d-texte h2 { font-size: 26px; }
-  .i-marques { gap: 34px; } .i-marques .glyphe { width: 76px; }
-  .i-recherche { font-size: 30px; }
-  .i-trois { gap: 10px; } .i-trois .telephone { flex: 1 1 0; min-width: 0; height: auto; border-width: 3px; border-radius: 12px; }
-  .i-pages .navigateur { width: 62%; } .vue .i-pages .navigateur:nth-child(1) { transform: translate(-30%, -10%); } .vue .i-pages .navigateur:nth-child(3) { transform: translate(30%, 10%); }
-  .d-bloc { min-height: 0; row-gap: 22px; padding-block: 34px; }
-  .d-texte h2 { font-size: 26px; }
-  .d-fin { min-height: 0; padding-block: 60px 40px; }
-  .d-ensuite-nom { font-size: 22px; }
-}
 @media (prefers-reduced-motion: reduce) {
   .fil, .d-bas, .i-recherche i { animation: none; }
   .i-recherche span { max-width: none; animation: none; }
@@ -486,4 +406,152 @@ button.case:focus-visible { outline-offset: -3px; }
 @media (prefers-reduced-motion: reduce) {
   [data-r] { transition-duration: 0.01s !important; transition-delay: 0s !important; }
   .entree i, .entree img { animation-duration: 0.01s; animation-delay: 0s; }
+}
+
+/* ——— Téléphone (24/11/2026). David, après avoir vu le site sur son iPhone : « je deteste la version sur mobile, c'est
+   tout l'inverse de ce que je veux faire ! […] Je deteste quand un logo, bouton ou texte colle sur le coté, je veux une
+   dispositon qui fasse en sorte qu'on ressente un confort ». La page se compose donc pour le téléphone :
+   on avance en faisant défiler vers le bas (plus de glissement de côté), tout se pose au centre, rien ne touche un bord
+   (28 px de marge au moins), et le film d'ouverture est un film vertical qui remplit l'écran. site.js pose la classe
+   « tel » sur #app et règle le défilement ; l'ordinateur ne change pas. */
+@media (max-width: 760px) {
+  :root { --m: 28px; --g: 12px; --r: 10px; --t-micro: 14px; --t-etiquette: 15px; --t-petit: 16px; --t-base: 17px; --t-titre: 28px; --t-grand: 34px; }
+  html, body { height: auto; min-height: 100%; overflow: visible; overscroll-behavior: auto; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  a, button { -webkit-tap-highlight-color: transparent; }
+  html:has(#app.en-galerie), html:has(#app.en-domaine) { overflow: hidden; }
+  #app { position: static; overflow: visible; }
+  .grille { grid-template-columns: minmax(0, 1fr); }
+  .entree, .galerie, .domaine { position: fixed; }
+
+  /* en-tête : le Db au centre, les quatre parties sur une ligne au centre ; il reste en haut de la page */
+  .tete { height: auto; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 8px 22px; padding: calc(env(safe-area-inset-top) + 16px) var(--m) 0; }
+  .tete .logo { flex: 0 0 100%; display: grid; justify-items: center; margin: 0; }
+  .tete .logo img { width: 36px; height: 36px; }
+  .tete .liens { display: flex; gap: 22px; }
+  .tete .liens, .tete .contact { font-size: 14.5px; line-height: 1.2; white-space: nowrap; }
+  .pied { display: none; }
+
+  /* les parties se suivent de haut en bas */
+  .deck { position: static; overflow: visible; touch-action: auto; }
+  .pane { position: relative; inset: auto; display: grid; min-height: 100vh; min-height: 100svh; padding: 76px var(--m); align-content: center; will-change: auto; }
+  .pane > * { grid-column: 1 / -1; }
+
+  /* 1 — le film vertical remplit l'écran ; le Db et les parties se posent sur son blanc du haut, le son sur celui du bas */
+  .p-ouverture { height: 100vh; height: 100svh; min-height: 0; padding: 0; }
+  .p-ouverture .film { width: 100%; height: 100%; aspect-ratio: auto; border-radius: 0; background: var(--blanc); }
+  .p-ouverture .film[data-r] { transform: none; filter: blur(16px); }
+  .film-lancer { background: rgb(255 255 255 / 0.9); }
+  .film-lancer span { padding: 15px 26px 15px 22px; font-size: var(--t-petit); }
+  .p-ouverture .son { position: absolute; z-index: 3; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom) + 46px); width: max-content; margin-inline: auto; padding: 11px 18px; border-radius: 99px; background: rgb(244 244 243 / 0.8); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); font-size: 14px; line-height: 1; letter-spacing: -0.01em; color: var(--encre); white-space: nowrap; }
+  .p-ouverture .son[hidden] { display: none; }
+  .tel-bas { position: absolute; z-index: 3; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom) + 14px); width: 18px; height: 18px; margin-inline: auto; color: var(--gris-clair); animation: d-bas 2.4s ease-in-out infinite; pointer-events: none; }
+
+  /* 2 — ce que je construis : le chapeau, puis trois grandes cartes l'une sous l'autre */
+  .p-ensemble { min-height: 0; grid-template-rows: none; row-gap: 52px; align-content: start; padding-block: 84px 76px; }
+  .chapeau { grid-column: 1 / -1; gap: 12px; }
+  .sous { max-width: 19em; font-size: var(--t-base); line-height: 1.3; }
+  .brique { grid-row: auto; grid-template-rows: auto; align-self: start; }
+  .brique .vitrine, .brique .vitrine.v-site { width: 100%; aspect-ratio: 4 / 3; }
+  .brique h3 { margin-top: 22px; font-size: 22px; letter-spacing: -0.03em; }
+  .brique p { margin-top: 8px; max-width: 19em; font-size: var(--t-petit); line-height: 1.36; }
+  .decouvrir { margin-top: 16px; gap: 8px; font-size: var(--t-petit); }
+  .v-identite { gap: 20px; }
+  .v-identite .marque { width: 132px; height: 132px; border-radius: 8px; }
+  .v-identite .specimen { height: 132px; }
+  .v-identite .aa { font-size: 86px; }
+  .v-identite .nuancier i { width: 18px; }
+  .navigateur { width: 82%; }
+  .navigateur .barre { height: 18px; }
+  .navigateur .barre b { font-size: 7px; }
+  .telephone { height: 84%; border-width: 5px; border-radius: 18px; }
+
+  /* 3 — mon travail : la porte, au centre de l'écran */
+  .porte { width: 100%; aspect-ratio: 4 / 5; max-height: calc(100svh - 152px); }
+  .porte-bouton span { padding: 16px 24px 16px 26px; }
+
+  /* 4 — moi : son portrait, puis son texte en entier (plus de texte coupé dans une carte) */
+  .p-moi { min-height: 0; grid-template-rows: none; row-gap: 16px; align-content: start; padding-block: 76px; }
+  .tuile.lever, .tuile.ciel { grid-column: 1 / -1; }
+  .tuile.ciel { order: -1; aspect-ratio: 1; }
+  .signe { display: none; }
+  .portrait { height: 88%; }
+  .tuile.lever { container-type: normal; overflow: visible; padding: 34px 26px 36px; }
+  .tuile.lever .etiquette { margin-bottom: 14px; }
+  .cv-titre { font-size: 27px; line-height: 1.08; }
+  .cv-recit { margin-top: 20px; columns: 1; font-size: 16px; line-height: 1.45; }
+  .cv-recit p { margin-bottom: 0.9em; }
+  .defile.suite::after { display: none; }
+
+  /* 5 — contact : une colonne étroite au centre */
+  .p-contact { grid-template-rows: auto auto; row-gap: 52px; align-content: center; padding-block: 84px calc(env(safe-area-inset-bottom) + 30px); }
+  .fin-db { height: 64px; margin-bottom: 22px; }
+  .demande { width: min(100%, 300px); grid-template-columns: 1fr; gap: 24px; margin-top: 36px; text-align: center; }
+  .demande label { gap: 4px; }
+  .demande label span { font-size: 14px; }
+  .demande input { padding: 8px 0 11px; font-size: 17px; text-align: center; }
+  .envoyer { margin-top: 12px; padding: 17px 36px; font-size: var(--t-petit); }
+  .reseaux { margin-top: 46px; gap: 16px 30px; font-size: var(--t-petit); }
+  .reseaux .mail { flex: 0 0 100%; }
+  .copie { padding-bottom: 0; }
+
+  /* la galerie : « Fermer » en haut au centre, les réseaux en bas au centre, plus rien dans les coins */
+  .g-tete { height: auto; display: flex; justify-content: center; padding: calc(env(safe-area-inset-top) + 18px) var(--m) 0; }
+  .g-logo, .g-dit, .g-aide, .g-compte { display: none; }
+  .g-pied { height: auto; display: flex; justify-content: center; padding: 0 var(--m) calc(env(safe-area-inset-bottom) + 20px); }
+  .pilule { padding: 13px 20px; }
+  .case { padding: 10px 12px; }
+  .c-haut i { display: none; }
+  .c-milieu { padding: 10px 0; }
+  .fiche { padding-block: 84px 30px; align-content: center; row-gap: 20px; }
+  .f-film .f-cadre, .f-large .f-cadre, .f-site .f-cadre, .f-art .f-cadre { grid-column: 1 / -1; justify-self: center; }
+  .f-film .f-cadre { height: min(calc(100dvh - 320px), 142vw); }
+  .f-art .f-cadre { height: auto; width: 100%; }
+  .f-texte, .f-large .f-texte, .f-site .f-texte { grid-column: 1 / -1; justify-items: center; text-align: center; }
+  .f-liens { margin-top: 16px; justify-items: center; gap: 10px; }
+
+  /* les pages de métier : les trois onglets en haut au centre, « Fermer » en bas au centre, le texte au centre */
+  .d-tete { height: auto; display: flex; justify-content: center; padding: calc(env(safe-area-inset-top) + 20px) var(--m) 0; }
+  .d-tete .logo { display: none; }
+  .d-tete::before { inset: 0 0 -34px; background: linear-gradient(var(--blanc) 58%, rgb(255 255 255 / 0)); }
+  /* le texte s'efface sous « Fermer » au lieu de passer derrière lui */
+  .domaine::after { content: ""; position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: calc(env(safe-area-inset-bottom) + 124px); background: linear-gradient(rgb(255 255 255 / 0), var(--blanc) 64%); pointer-events: none; }
+  .d-tete .d-onglets { display: flex; gap: 18px; font-size: 14px; white-space: nowrap; }
+  .d-fermer:focus-visible, .g-fermer:focus-visible { outline: 0; }
+  .d-fermer { position: fixed; z-index: 3; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom) + 20px); width: max-content; margin-inline: auto; padding: 14px 24px; box-shadow: 0 10px 26px -12px rgb(10 10 10 / 0.55); }
+  .d-ouverture { height: auto; min-height: 100svh; grid-template-rows: auto auto; align-content: center; row-gap: 36px; padding: 84px var(--m) 104px; }
+  .d-bas { display: none; }
+  .d-bloc { min-height: 0; row-gap: 30px; padding: 56px var(--m); }
+  .d-bloc .d-texte, .d-bloc .d-image, .d-bloc .d-apres, .d-fin-centre, .d-ensuite, .d-mention { grid-column: 1 / -1; grid-row: auto; justify-self: center; text-align: center; }
+  .d-bloc .d-image { width: 100%; }
+  .d-texte h2, .f-centre .d-texte h2 { font-size: 28px; line-height: 1.06; letter-spacing: -0.04em; }
+  .d-corps, .f-centre .d-apres { max-width: 21em; margin-inline: auto; font-size: 16px; line-height: 1.45; }
+  .i-marques { gap: 34px; }
+  .i-marques .glyphe { width: 70px; }
+  .i-recherche { font-size: 28px; }
+  .i-trois { gap: 10px; }
+  .i-trois .telephone { flex: 1 1 0; min-width: 0; height: auto; border-width: 3px; border-radius: 12px; }
+  .i-pages .navigateur { width: 62%; }
+  .vue .i-pages .navigateur:nth-child(1) { transform: translate(-30%, -10%); }
+  .vue .i-pages .navigateur:nth-child(3) { transform: translate(30%, 10%); }
+  .i-systeme { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 14px; }
+  .d-fin { min-height: 0; row-gap: 46px; padding: 64px var(--m) calc(env(safe-area-inset-bottom) + 112px); }
+  .d-actions { flex-direction: column; gap: 20px; }
+  .d-ensuite { flex-direction: column; align-items: center; gap: 10px; padding-top: 28px; }
+  .d-ensuite-nom { font-size: 24px; }
+}
+/* un écran très court (petit iPhone) : le film entier tient dans la hauteur, rien n'est rogné sous le Db */
+@media (max-width: 760px) and (min-aspect-ratio: 62 / 100) {
+  .p-ouverture .film video { object-fit: contain; }
+}
+/* un écran très étroit : les quatre parties gardent leur ligne */
+@media (max-width: 350px) {
+  .tete .liens, .tete { column-gap: 14px; }
+  .tete .liens { gap: 14px; }
+  .tete .liens, .tete .contact { font-size: 14px; }
+  .d-tete .d-onglets { gap: 12px; font-size: 13px; }
+}
+@media (max-width: 760px) and (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .tel-bas { animation: none; }
 }
