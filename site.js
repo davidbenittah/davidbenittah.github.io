@@ -249,21 +249,90 @@
     }).catch(() => {});
   });
 
-  // ——— Contact : la demande, en trois cases (celles de la version précédente du site). Elle part à l'adresse de réception ;
+  // ——— Contact : la demande, en trois réponses données une à la fois. Elle part à l'adresse de réception ;
   // si celle-ci ne répond pas, la messagerie du visiteur s'ouvre avec le message prêt : aucune demande ne se perd.
   // L'aperçu sur le Mac (ou sur le Wi-Fi de la maison) a sa réception sur place. Partout ailleurs, GitHub Pages ou un nom
   // de domaine, la demande part vers le Mac de David par sa porte publique : registre, puis Yossi le prévient.
   const ICI = /^(localhost|127\.0\.0\.1|10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)$/.test(location.hostname);
   const RECEPTION = ICI ? '/demande' : 'https://macbook-pro-de-mac.tail01b95c.ts.net/demande';
-  const demande = document.getElementById('demande'), envoyer = document.getElementById('envoyer');
+  const demande = document.getElementById('demande'), envoyer = document.getElementById('envoyer'), envoyerMot = envoyer.querySelector('span');
   const dNote = document.getElementById('demande-note'), merci = document.getElementById('merci');
-  demande.addEventListener('input', () => { dNote.textContent = ''; });
+  // une réponse à la fois (24/11, « un truc à remplir à la fois ») : les cases restent dans la page, une seule se montre.
+  // Quatre réponses : ce qu'on vend, son site ou ses réseaux (facultatif : David prépare sa proposition avant de
+  // rappeler), son nom, où répondre (« sois un mail sois un numero obligatoire rien d'autre »).
+  const dChamp = document.getElementById('d-champ'), dCases = [...demande.querySelectorAll('.d-pile input')];
+  const dQuestions = [...demande.querySelectorAll('.d-questions label')], dPoints = [...demande.querySelectorAll('.d-points i')];
+  const dManque = { vend: 'Il manque ce que vous vendez.', nom: 'Il manque votre nom.', contact: 'Il faut un mail ou un numéro de téléphone.' };
+  // un mail, ou un numéro de 8 à 15 chiffres (espaces, points, tirets, parenthèses et « + » admis) ; même règle dans reception.py
+  const joignable = (v) => {
+    v = v.trim();
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return true;
+    if (!/^\+?[\d\s().\-\/]+$/.test(v)) return false;
+    const chiffres = v.replace(/\D/g, '').length;
+    return chiffres >= 8 && chiffres <= 15;
+  };
+  const refusee = (el) => (el.name === 'contact' ? !joignable(el.value) : el.required && !el.value.trim());
+  let dPas = 0;
+  // le site et les réseaux : autant qu'on veut (24/11, « la possibilité de mettre plusieurs reseaux et site, ne pas mettre un
+  // choix »). Chaque lien écrit se range sous le champ, qui se vide pour le suivant ; une croix le retire.
+  const dLiensCase = document.getElementById('d-liens'), dPlus = document.getElementById('d-plus');
+  const dAjouts = document.getElementById('d-ajouts'), dListe = dAjouts.querySelector('ul'), dLiens = [];
+  function liensDessine() {
+    dListe.textContent = '';
+    dLiens.forEach((lien, i) => {
+      const li = document.createElement('li'), mot = document.createElement('span'), croix = document.createElement('button');
+      mot.textContent = lien;
+      croix.type = 'button'; croix.setAttribute('aria-label', 'Retirer ' + lien);
+      croix.innerHTML = '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+      croix.addEventListener('click', () => { dLiens.splice(i, 1); liensDessine(); dLiensCase.focus({ preventScroll: true }); });
+      li.append(mot, croix); dListe.append(li);
+    });
+    dAjouts.classList.toggle('plein', dLiens.length > 0);
+    dLiensCase.placeholder = dLiens.length ? 'En ajouter un autre' : 'Site, Instagram, TikTok…';
+  }
+  function liensRange() {
+    dLiensCase.value.split(/[,;]+/).map((v) => v.trim().slice(0, 120)).filter(Boolean).forEach((v) => { if (dLiens.length < 8 && !dLiens.includes(v)) dLiens.push(v); });
+    dLiensCase.value = '';
+    liensDessine(); demandeBouton();
+  }
+  dPlus.addEventListener('click', () => { liensRange(); dLiensCase.focus({ preventScroll: true }); });
+  // Entrée sur un lien écrit : il se range et la case reste, pour le suivant ; Entrée sur la case vide : on avance
+  dLiensCase.addEventListener('keydown', (e) => { if (e.key === 'Enter' && dLiensCase.value.trim()) { e.preventDefault(); liensRange(); } });
+  dLiensCase.addEventListener('input', () => { if (/[,;]/.test(dLiensCase.value)) liensRange(); });
+  function demandeBouton() {
+    const el = dCases[dPas];
+    const dernier = dPas === dCases.length - 1;
+    envoyer.classList.toggle('mot', dernier);
+    envoyer.setAttribute('aria-label', dernier ? 'Envoyer' : 'Suivant');
+    dChamp.classList.toggle('plus', el === dLiensCase && !!el.value.trim());   // le « + » : ranger ce lien et en écrire un autre
+  }
+  function demandePas(n, saisir) {
+    dPas = Math.max(0, Math.min(dCases.length - 1, n));
+    demande.dataset.pas = dPas;
+    [dCases, dQuestions, dPoints].forEach((lot) => lot.forEach((el, i) => { el.classList.toggle('la', i === dPas); el.classList.toggle('fait', i < dPas); }));
+    dCases.forEach((el, i) => { el.tabIndex = i === dPas ? 0 : -1; });
+    demandeBouton();
+    dNote.textContent = '';
+    // la case suivante prend la main dans le même geste : sur un téléphone, le clavier reste ouvert
+    if (saisir) dCases[dPas].focus({ preventScroll: true });
+  }
+  function demandeRefus(i) {
+    demandePas(i, true);
+    dNote.textContent = dManque[dCases[i].name];
+    dChamp.classList.remove('non'); void dChamp.offsetWidth; dChamp.classList.add('non');
+  }
+  document.getElementById('d-retour').addEventListener('click', () => demandePas(dPas - 1, true));
+  demande.addEventListener('input', () => { dNote.textContent = ''; demandeBouton(); });
   demande.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (refusee(dCases[dPas])) { demandeRefus(dPas); return; }
+    if (dCases[dPas] === dLiensCase) liensRange();   // la flèche : ce qui est écrit se range, puis on avance
+    if (dPas < dCases.length - 1) { demandePas(dPas + 1, true); return; }
+    const manque = dCases.findIndex(refusee);
+    if (manque > -1) { demandeRefus(manque); return; }
     const d = Object.fromEntries(new FormData(demande));
-    const manque = [...demande.elements].find((el) => el.required && !el.value.trim());
-    if (manque) { dNote.textContent = 'Il manque une case.'; manque.focus(); return; }
-    envoyer.disabled = true; envoyer.textContent = 'Envoi…';
+    d.liens = [...dLiens, dLiensCase.value.trim()].filter(Boolean).join(', ').slice(0, 300);
+    envoyer.disabled = true; envoyerMot.textContent = 'Envoi…';
     let ok = false;
     const coupe = new AbortController(), delai = setTimeout(() => coupe.abort(), 9000);   // Mac éteint : on n'attend pas plus
     try {
@@ -271,9 +340,9 @@
       ok = r.ok;
     } catch (err) { ok = false; }
     clearTimeout(delai);
-    envoyer.disabled = false; envoyer.textContent = 'Envoyer';
+    envoyer.disabled = false; envoyerMot.textContent = 'Envoyer';
     if (!ok) {
-      location.href = 'mailto:david.benittah@gmail.com?subject=' + encodeURIComponent('Une idée de projet') + '&body=' + encodeURIComponent(`${d.nom}\n${d.vend}\n${d.contact}`);
+      location.href = 'mailto:david.benittah@gmail.com?subject=' + encodeURIComponent('Une idée de projet') + '&body=' + encodeURIComponent([d.nom, d.vend, d.liens, d.contact].filter(Boolean).join('\n'));
       return;
     }
     demande.hidden = true; merci.hidden = false;

@@ -104,19 +104,36 @@
         <p class="etiquette" data-r style="--i:1">Contact</p>
         <h2 class="dit" data-r style="--i:1">Parlons de votre projet.</h2>
         <p class="sous" data-r style="--i:2">Une idée suffit pour commencer.</p>
-        <form class="demande" id="demande" novalidate data-r style="--i:3">
-          <label><span>Votre nom</span><input name="nom" type="text" autocomplete="name" required maxlength="80"></label>
-          <label><span>Où vous répondre</span><input name="contact" type="text" autocomplete="email" placeholder="Mail ou téléphone" required maxlength="160"></label>
-          <label class="large"><span>Ce que vous vendez</span><input name="vend" type="text" required maxlength="300"></label>
+        <form class="demande" id="demande" novalidate data-r style="--i:3" data-pas="0">
+          <p class="d-questions">
+            <label class="la" for="d-vend">Ce que vous vendez</label>
+            <label for="d-liens">Votre site et vos réseaux <em>facultatif</em></label>
+            <label for="d-nom">Votre nom</label>
+            <label for="d-contact">Où vous répondre</label>
+          </p>
+          <div class="d-champ" id="d-champ">
+            <div class="d-pile">
+              <input class="la" id="d-vend" name="vend" type="text" autocomplete="off" enterkeyhint="next" placeholder="Un produit, un lieu, un service" required maxlength="300">
+              <input id="d-liens" name="liens" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" enterkeyhint="enter" placeholder="Site, Instagram, TikTok…" maxlength="300" tabindex="-1">
+              <input id="d-nom" name="nom" type="text" autocomplete="name" enterkeyhint="next" placeholder="Prénom et nom" required maxlength="80" tabindex="-1">
+              <input id="d-contact" name="contact" type="text" autocomplete="email" autocapitalize="none" spellcheck="false" enterkeyhint="send" placeholder="Mail ou téléphone" required maxlength="160" tabindex="-1">
+            </div>
+            <button class="d-plus" type="button" id="d-plus" aria-label="Ajouter un autre lien"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 2v10M2 7h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+            <button class="d-suite" type="submit" id="envoyer" aria-label="Suivant"><span>Envoyer</span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9h11.2M9.6 4.2 14.4 9l-4.8 4.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="d-ajouts" id="d-ajouts"><ul aria-label="Vos liens"></ul></div>
           <input class="miel" name="site" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="envoyer" type="submit" id="envoyer">Envoyer</button>
+          <div class="d-fil">
+            <button class="d-retour" type="button" id="d-retour">Retour</button>
+            <p class="d-points" aria-hidden="true"><i class="la"></i><i></i><i></i><i></i></p>
+          </div>
           <p class="etiquette demande-note" id="demande-note" role="status" aria-live="polite"></p>
         </form>
         <div class="merci" id="merci" hidden aria-live="polite">
           <p class="titre">Merci.</p>
           <p class="sous">Je vous réponds vite.</p>
         </div>
-        <p class="reseaux" data-r style="--i:4"><a class="mail" id="mail" href="mailto:david.benittah@gmail.com?subject=Une%20id%C3%A9e%20de%20projet">david.benittah@gmail.com</a><a data-reseau="instagram" href="https://www.instagram.com/david_benittah/" target="_blank" rel="noopener">Instagram</a><a data-reseau="tiktok" href="https://www.tiktok.com/@davidbenittah" target="_blank" rel="noopener">TikTok</a></p>
+        <p class="reseaux" data-r style="--i:4"><a class="mail" id="mail" href="mailto:david.benittah@gmail.com?subject=Une%20id%C3%A9e%20de%20projet">david.benittah@gmail.com</a><a data-reseau="instagram" href="https://www.instagram.com/david_benittah/" target="_blank" rel="noopener">Instagram</a><a data-reseau="tiktok" href="https://www.tiktok.com/@david_benittah" target="_blank" rel="noopener">TikTok</a></p>
       </div>
       <p class="copie" data-r style="--i:5">© 2026 David Benittah</p>
     </section>
@@ -145,7 +162,7 @@
     </header>
     <footer class="g-pied grille">
       <p class="g-aide" id="g-aide">Glissez pour parcourir</p>
-      <nav class="g-reseaux" aria-label="Mes réseaux"><span>Mes réseaux</span><a class="pilule" data-reseau="instagram" href="https://www.instagram.com/david_benittah/" target="_blank" rel="noopener">Instagram</a><a class="pilule" data-reseau="tiktok" href="https://www.tiktok.com/@davidbenittah" target="_blank" rel="noopener">TikTok</a></nav>
+      <nav class="g-reseaux" aria-label="Mes réseaux"><span>Mes réseaux</span><a class="pilule" data-reseau="instagram" href="https://www.instagram.com/david_benittah/" target="_blank" rel="noopener">Instagram</a><a class="pilule" data-reseau="tiktok" href="https://www.tiktok.com/@david_benittah" target="_blank" rel="noopener">TikTok</a></nav>
       <p class="g-compte" id="g-compte"></p>
     </footer>
     <div class="fiche grille" id="fiche" hidden>

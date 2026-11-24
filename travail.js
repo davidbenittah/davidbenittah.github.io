@@ -6,7 +6,7 @@
              site  = une capture de page (img)
              art   = une pièce de son identité dessinée dans la page (signe, clair, couleurs, ecriture)
    date    : année-mois de publication (pour ses films : lue dans le lien Instagram) */
-window.RESEAUX = { instagram: 'https://www.instagram.com/david_benittah/', tiktok: 'https://www.tiktok.com/@davidbenittah' };
+window.RESEAUX = { instagram: 'https://www.instagram.com/david_benittah/', tiktok: 'https://www.tiktok.com/@david_benittah' };
 window.TRAVAIL = [
   { type: 'contenu', titre: 'Open anywhere.', secteur: 'Publicité', date: '2026-10', note: 'Film non officiel, sans lien avec la marque.', media: { genre: 'film', slug: 'open-anywhere' }, ig: 'https://www.instagram.com/reel/DezYnH5IFMR/' },
   { type: 'identite', titre: 'Le signe.', secteur: 'Mon identité', date: '2026-11', media: { genre: 'art', art: 'signe' } },

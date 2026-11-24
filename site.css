@@ -168,17 +168,63 @@ img, video { display: block; max-width: 100%; }
 .fin-db { width: auto; height: clamp(44px, 8.5vh, 96px); margin-bottom: clamp(10px, 2.4vh, 28px); }
 .fin .etiquette { margin-bottom: 12px; }
 .fin .sous { margin-top: 12px; }
-/* la demande : trois cases, un trait sous chacune */
-.demande { position: relative; width: min(100%, 34em); margin-top: clamp(16px, 3.4vh, 40px); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2.2vh, 22px) var(--g); text-align: left; }
+/* la demande : une réponse à la fois, dans un champ qui ressemble à un message qu'on écrit (24/11, « un truc à remplir à la fois ») */
+.demande { position: relative; width: min(100%, 30em); margin-top: clamp(18px, 3.6vh, 44px); display: grid; justify-items: center; }
 .demande[hidden], .merci[hidden] { display: none; }
-.demande label { display: grid; gap: 2px; min-width: 0; }
-.demande label.large { grid-column: 1 / -1; }
-.demande label span { font-size: var(--t-micro); line-height: 1.2; letter-spacing: -0.01em; color: var(--gris); }
-.demande input { width: 100%; padding: 5px 0 8px; border: 0; border-bottom: 1px solid rgb(10 10 10 / 0.18); border-radius: 0; background: none; font: inherit; letter-spacing: inherit; color: var(--encre); outline: 0; -webkit-appearance: none; appearance: none; transition: border-color 0.25s ease; }
-.demande input::placeholder { color: var(--gris-clair); opacity: 1; }
-.demande input:hover { border-bottom-color: rgb(10 10 10 / 0.4); }
-.demande input:focus { border-bottom-color: var(--encre); }
+.d-questions, .d-pile { display: grid; }
+.d-questions > *, .d-pile > * { grid-area: 1 / 1; }
+.d-questions { margin: 0 0 clamp(10px, 1.7vh, 16px); font-size: var(--t-base); line-height: 1.2; }
+.d-questions em { margin-left: 0.35em; font-style: normal; font-size: var(--t-micro); letter-spacing: -0.01em; color: var(--gris); }
+/* une seule question et une seule case visibles : la suivante monte, la précédente sort par le haut */
+.d-questions label, .d-pile input { opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 0.26s ease, transform 0.5s var(--out), visibility 0s 0.26s; }
+.d-questions label.fait, .d-pile input.fait { transform: translateY(-12px); }
+.d-questions label.la, .d-pile input.la { opacity: 1; visibility: visible; transform: none; transition-delay: 0.1s, 0.1s, 0s; }
+.d-champ { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; padding: 7px 7px 7px clamp(22px, 1.9vw, 30px); border-radius: 99px; background: var(--fond); box-shadow: inset 0 0 0 1.5px transparent; overflow: hidden; transition: box-shadow 0.25s ease; }
+.d-champ:hover { box-shadow: inset 0 0 0 1.5px rgb(10 10 10 / 0.14); }
+.d-champ:focus-within { box-shadow: inset 0 0 0 1.5px var(--encre); }
+.d-champ.non { animation: demande-non 0.36s ease; }
+@keyframes demande-non { 20% { transform: translateX(-6px); } 50% { transform: translateX(5px); } 80% { transform: translateX(-3px); } }
+.d-pile { min-width: 0; text-align: left; }
+.d-pile input { width: 100%; height: clamp(42px, 5.6vh, 52px); padding: 0; border: 0; border-radius: 0; background: none; font: inherit; letter-spacing: inherit; color: var(--encre); outline: 0; -webkit-appearance: none; appearance: none; }
+.d-pile input::placeholder { color: var(--gris-clair); opacity: 1; }
+.d-pile input:-webkit-autofill { -webkit-box-shadow: 0 0 0 100px var(--fond) inset; -webkit-text-fill-color: var(--encre); caret-color: var(--encre); }
 .demande .miel { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+/* le bouton du champ : une flèche, puis « Envoyer » à la dernière réponse */
+.d-suite { display: inline-flex; align-items: center; justify-content: center; margin-left: 8px; min-width: clamp(42px, 5.6vh, 52px); height: clamp(42px, 5.6vh, 52px); padding: 0; border-radius: 99px; background: var(--encre); color: var(--blanc); font-size: var(--t-petit); line-height: 1; transition: transform 0.3s var(--out), opacity 0.25s ease, padding 0.45s var(--out); }
+.d-suite svg { flex: none; width: 18px; height: 18px; }
+.d-suite span { max-width: 0; margin-right: 0; overflow: hidden; white-space: nowrap; opacity: 0; transition: max-width 0.45s var(--out), margin 0.45s var(--out), opacity 0.3s ease; }
+.d-suite.mot { padding: 0 20px 0 24px; }
+.d-suite.mot span { max-width: 6em; margin-right: 10px; opacity: 1; }
+.d-suite:hover { transform: scale(1.06); }
+.d-suite:active { transform: scale(0.95); }
+.d-suite:disabled { opacity: 0.5; transform: none; }
+.d-suite:focus-visible { outline-offset: 3px; border-radius: 99px; }
+/* le site et les réseaux : autant qu'on veut (« la possibilité de mettre plusieurs reseaux et site, ne pas mettre un choix »).
+   Le « + » range ce qu'on vient d'écrire sous le champ et rend la case, pour en ajouter un autre. */
+.d-plus { display: grid; place-items: center; flex: none; width: 0; height: clamp(34px, 4.6vh, 40px); margin-left: 0; border-radius: 99px; background: var(--blanc); color: var(--encre); opacity: 0; visibility: hidden; overflow: hidden; transition: width 0.4s var(--out), margin 0.4s var(--out), opacity 0.25s ease, transform 0.3s var(--out), visibility 0s 0.4s; }
+.d-champ.plus .d-plus { width: clamp(34px, 4.6vh, 40px); margin-left: 8px; opacity: 1; visibility: visible; transition-delay: 0s; }
+.d-plus svg { width: 14px; height: 14px; }
+.d-plus:hover { transform: scale(1.08); }
+.d-plus:active { transform: scale(0.94); }
+.d-plus:focus-visible { outline-offset: 2px; border-radius: 99px; }
+.d-ajouts { width: 100%; display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--out); }
+.demande[data-pas="1"] .d-ajouts.plein { grid-template-rows: 1fr; }
+.d-ajouts ul { min-height: 0; margin: 0; padding: 0; overflow: hidden; list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 6px; }
+.d-ajouts li { display: inline-flex; align-items: center; max-width: 100%; height: 30px; margin-top: 8px; padding: 0 3px 0 13px; border-radius: 99px; background: var(--fond); font-size: var(--t-micro); letter-spacing: -0.01em; animation: demande-ajout 0.4s var(--out); }
+@keyframes demande-ajout { from { opacity: 0; transform: translateY(-6px) scale(0.96); } }
+.d-ajouts li span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.d-ajouts li button { flex: none; display: grid; place-items: center; width: 24px; height: 24px; margin-left: 2px; border-radius: 99px; color: var(--gris); transition: color 0.2s ease; }
+.d-ajouts li button:hover { color: var(--encre); }
+.d-ajouts li svg { width: 9px; height: 9px; }
+/* où l'on en est : trois points, celui de la réponse en cours s'allonge ; « Retour » à partir de la deuxième */
+.d-fil { width: 100%; margin-top: clamp(12px, 2vh, 18px); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; }
+.d-retour { justify-self: end; padding: 4px 0; font-size: var(--t-micro); letter-spacing: -0.01em; color: var(--gris); opacity: 0; visibility: hidden; transition: color 0.25s ease, opacity 0.25s ease, visibility 0s 0.25s; }
+.demande:not([data-pas="0"]) .d-retour { opacity: 1; visibility: visible; transition-delay: 0s; }
+.d-retour:hover { color: var(--encre); }
+.d-points { grid-column: 2; display: flex; gap: 7px; margin: 0; }
+.d-points i { width: 6px; height: 6px; border-radius: 99px; background: rgb(10 10 10 / 0.16); transition: width 0.45s var(--out), background-color 0.3s ease; }
+.d-points i.fait { background: var(--encre); }
+.d-points i.la { width: 20px; background: var(--encre); }
 .envoyer { grid-column: 1 / -1; justify-self: center; margin-top: clamp(2px, 0.8vh, 8px); padding: 13px 28px; border-radius: 99px; background: var(--encre); color: var(--blanc); font-size: var(--t-petit); line-height: 1; transition: transform 0.3s var(--out), opacity 0.25s ease; }
 .envoyer:hover { transform: scale(1.04); }
 .envoyer:active { transform: scale(0.97); }
@@ -401,6 +447,8 @@ button.case:focus-visible { outline-offset: -3px; }
   .fil, .d-bas, .i-recherche i { animation: none; }
   .i-recherche span { max-width: none; animation: none; }
   .i-pages .navigateur, .i-ligne i, .i-bulle, .i-tel > .insta { transition: none; }
+  .d-questions label, .d-pile input, .d-suite, .d-suite span, .d-points i, .d-plus, .d-ajouts { transition: none; }
+  .d-champ.non, .d-ajouts li { animation: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -486,10 +534,18 @@ button.case:focus-visible { outline-offset: -3px; }
   /* 5 — contact : une colonne étroite au centre */
   .p-contact { grid-template-rows: auto auto; row-gap: 52px; align-content: center; padding-block: 84px calc(env(safe-area-inset-bottom) + 30px); }
   .fin-db { height: 64px; margin-bottom: 22px; }
-  .demande { width: min(100%, 300px); grid-template-columns: 1fr; gap: 24px; margin-top: 36px; text-align: center; }
-  .demande label { gap: 4px; }
-  .demande label span { font-size: 14px; }
-  .demande input { padding: 8px 0 11px; font-size: 17px; text-align: center; }
+  .demande { width: min(100%, 340px); margin-top: 34px; }
+  .d-questions { margin-bottom: 14px; font-size: 17px; }
+  .d-questions em { font-size: 14px; }
+  .d-champ { padding: 7px 7px 7px 24px; }
+  .d-pile input { height: 46px; font-size: 17px; }
+  .d-suite { min-width: 46px; height: 46px; }
+  .d-plus, .d-champ.plus .d-plus { height: 38px; }
+  .d-champ.plus .d-plus { width: 38px; }
+  .d-ajouts li { height: 34px; margin-top: 10px; padding: 0 4px 0 14px; font-size: 14px; }
+  .d-ajouts li button { width: 28px; height: 28px; }
+  .d-fil { margin-top: 18px; }
+  .d-retour { padding: 8px 0; font-size: 14px; }
   .envoyer { margin-top: 12px; padding: 17px 36px; font-size: var(--t-petit); }
   .reseaux { margin-top: 46px; gap: 16px 30px; font-size: var(--t-petit); }
   .reseaux .mail { flex: 0 0 100%; }
